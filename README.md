@@ -240,6 +240,7 @@ urlpatterns = [
 The core confusion comes from what replaces the Controller in Django’s MVT and how MVT eliminates it while still achieving the same functionality. Let's break it down conceptually and technically.
 
 ## 1️⃣ What Does a Controller Actually Do in MVC?
+
 A Controller in MVC acts as a traffic manager between:
 
 - The Router (which determines which Controller should handle a request).
@@ -290,6 +291,7 @@ exports.createStudent = async (req, res) => {
 3. The **View** (`students.ejs`) displays the data.
 
 ## 2️⃣ How MVT Eliminates the Controller
+
 Now, let's compare this to **MVT in Django**. In Django, the **View function replaces the Controller** by handling:
 
 - Request processing.
@@ -326,7 +328,8 @@ def add_student(request):
 3. The **Template** (`students.html`) displays the data.
 
 🚀 **The Key Difference**:
-✅ **MVC uses a Controller layer** to mediate between the Model and View.  
+
+✅ **MVC uses a Controller layer** to mediate between the Model and View.
 ✅ **MVT removes the explicit Controller** by letting View functions handle request processing.
 
 ## 3️⃣ A Side-by-Side Comparison
@@ -345,38 +348,11 @@ def add_student(request):
 - 🚀 **Direct integration**: View function directly fetches data from the Model and sends it to the Template.
 - 🔥 **More readable & faster**: Less separation makes development quicker.
 
-## 4️⃣ But How Does Django Handle Routing Without a Controller?
+## 4️⃣ Why Did Django Remove the Controller?
 
-Django **bakes the Controller logic into the View function and URL Router**.
+Django simplifies development by:
 
-### 📌 Example of Routing in MVC (Express)
-
-```javascript
-const express = require('express');
-const router = express.Router();
-const studentController = require('../controllers/studentController');
-
-router.get('/students', studentController.getAllStudents);
-router.post('/students', studentController.createStudent);
-
-module.exports = router;
-```
-
-### 📌 Same Thing in Django MVT (URLs)
-
-```python
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('students/', views.student_list, name='student_list'),
-    path('students/add/', views.add_student, name='add_student'),
-]
-```
-
-💡 **What’s Different?**
-
-- Express **maps the URL to a separate Controller function**.
-- Django **maps the URL directly to a View function**, eliminating the need for a Controller.
-
+- **Reducing redundancy** – No need for a separate Controller layer.
+- **Increasing speed** – View functions do what Controllers do, but with fewer files.
+- **Encouraging fast development** – It follows the **"batteries-included" philosophy**, meaning you don’t have to set up a separate controller for every action.
 
